@@ -3,20 +3,21 @@
     <h1>Todo List</h1>
     <form @submit.prevent="addTodo">
       <div class="form-group">
-        <label for="addTodo">Add task</label>
+        <label for="addTodo">Add New Todo</label>
         <input
           type="text"
           class="form-control"
-          placeholder="Add task"
+          placeholder="e.g., Buy gift tomorrow"
           id="addTodo"
           v-model="newTodo"
+          autocomplete="off"
         />
         <button
           @click="addTodo"
           type="submit"
           class="btn d-inline-block btn-primary mt-3"
         >
-          Add todo
+          Add
         </button>
       </div>
     </form>
@@ -25,15 +26,23 @@
       <li
         v-for="(todo, index) in todos"
         :key="index"
-        class="list-group-item d-flex justify-content-between align-items-center"
+        class="list-group-item d-flex align-items-center"
         :class="{ completed: todo.completed }"
-        @click="$set((todo.completed = !todo.completed))"
+        title="Click for check todo completed!"
       >
-        <span> {{ todo.title }}</span>
+        <input
+          type="checkbox"
+          class="mr-2 cursor-pointer"
+          v-model="todo.completed"
+          @click="toggleTodo(todo)"
+        />
+        <span>
+          {{ todo.title }}
+        </span>
         <button
           @click="removeTodo(index)"
           type="submit"
-          class="btn d-inline-block btn-danger"
+          class="btn d-inline-block ml-auto btn-danger"
         >
           Remove
         </button>
@@ -41,8 +50,8 @@
     </ul>
 
     <ul v-else class="list-group">
-      <li class="list-group-item">
-        <span>No tasks</span>
+      <li class="list-group-item bg-light">
+        <span>There is no todo. Enjoy your day off!</span>
       </li>
     </ul>
   </div>
@@ -51,9 +60,11 @@
 <script>
 export default {
   name: "TodoItem",
+
   data() {
     return {
       todos: [],
+      completedTodos: [],
       newTodo: "",
     };
   },
@@ -71,6 +82,9 @@ export default {
     },
     removeTodo(index) {
       this.todos.splice(index, 1);
+    },
+    toggleTodo(todo) {
+      todo.completed = !todo.completed;
     },
   },
   watch: {
@@ -96,5 +110,8 @@ export default {
 
 .completed span {
   text-decoration: line-through;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 </style>
