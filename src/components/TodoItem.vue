@@ -1,6 +1,7 @@
 <template>
   <div class="todo">
-    <form>
+    <h1>Todo List</h1>
+    <form @submit.prevent="addTodo">
       <div class="form-group">
         <label for="addTodo">Add task</label>
         <input
@@ -13,25 +14,33 @@
         <button
           @click="addTodo"
           type="submit"
-          class="btn d-inline-block btn-primary"
+          class="btn d-inline-block btn-primary mt-3"
         >
-          Add
+          Add todo
         </button>
       </div>
     </form>
 
-    <ul class="list-group" v-for="(todo, index) in todos" :key="index">
+    <ul v-if="todos.length > 0" class="list-group">
       <li
+        v-for="(todo, index) in todos"
+        :key="index"
         class="list-group-item d-flex justify-content-between align-items-center"
       >
         {{ todo.title }}
         <button
-          @click="removeTodo"
+          @click="removeTodo(index)"
           type="submit"
           class="btn d-inline-block btn-danger"
         >
           Remove
         </button>
+      </li>
+    </ul>
+
+    <ul v-else class="list-group">
+      <li class="list-group-item">
+        <span>No tasks</span>
       </li>
     </ul>
   </div>
@@ -61,6 +70,19 @@ export default {
     removeTodo(index) {
       this.todos.splice(index, 1);
     },
+  },
+  watch: {
+    todos: {
+      handler() {
+        localStorage.setItem("todos", JSON.stringify(this.todos));
+      },
+      deep: true,
+    },
+  },
+  mounted: function () {
+    if (localStorage.getItem("todos")) {
+      this.todos = JSON.parse(localStorage.getItem("todos"));
+    }
   },
 };
 </script>
