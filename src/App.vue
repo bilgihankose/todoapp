@@ -1,12 +1,25 @@
 <template>
-  <div id="app">Hello</div>
+  <div id="app">
+    <div class="container">
+      <todo-item></todo-item>
+    </div>
+  </div>
 </template>
 
 <script>
+import TodoItem from "./components/TodoItem.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    TodoItem,
+  },
 };
 </script>
 
-<style></style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+</style>
