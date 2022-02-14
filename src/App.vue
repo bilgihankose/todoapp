@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sidebar></Sidebar>
+    <Navbar></Navbar>
     <div class="container mt-5">
       <todo-item></todo-item>
     </div>
@@ -9,13 +9,13 @@
 
 <script>
 import TodoItem from "./components/TodoItem.vue";
-import Sidebar from "./components/Sidebar.vue";
+import Navbar from "./components/Navbar.vue";
 
 export default {
   name: "App",
   components: {
     TodoItem,
-    Sidebar,
+    Navbar,
   },
 };
 </script>

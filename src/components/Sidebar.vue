@@ -3,7 +3,10 @@
     <div class="list-holder">
       <div class="top-filter-container">
         <ul v-for="(item, key) in items" :key="key" class="top-filters">
-          <li class="item">{{ item.name }}</li>
+          <li class="item">
+            <span><i :class="item.icon"></i></span>
+            <span class="pl-3">{{ item.name }}</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -18,23 +21,23 @@ export default {
       items: [
         {
           name: "Inbox",
-          icon: "dashboard",
+          icon: "bi bi-envelope",
           path: "/inbox",
         },
         {
           name: "Today",
-          icon: "users",
+          icon: "bi bi-calendar-date",
           path: "/today",
         },
         {
           name: "Upcoming",
-          icon: "cog",
+          icon: "bi bi-calendar-event",
           path: "/upcoming",
         },
         {
           name: "Filters & Labels",
-          icon: "cog",
-          path: "/upcoming",
+          icon: "bi bi-grid",
+          path: "/filters-and-labels",
         },
       ],
     };
@@ -48,7 +51,6 @@ export default {
   width: 305px;
   height: 100vh;
   background-color: #282828;
-  padding-left: 35px;
   position: fixed;
   left: 0;
   top: 0;
